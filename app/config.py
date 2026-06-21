@@ -6,8 +6,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8", extra="ignore")
 
-    anthropic_api_key: str | None = None
-    ai_model: str = "claude-haiku-4-5"
+    gemini_api_key: str | None = None
+    ai_model: str = "gemini-2.5-flash"
     ai_timeout_seconds: float = 12.0
 
     owner_email: str = "owner@example.com"
@@ -29,7 +29,7 @@ class Settings(BaseSettings):
 
     @property
     def ai_configured(self) -> bool:
-        return bool(self.anthropic_api_key)
+        return bool(self.gemini_api_key)
 
     @property
     def email_configured(self) -> bool:

@@ -7,7 +7,7 @@ from fastapi.testclient import TestClient
 @pytest.fixture
 def client(tmp_path, monkeypatch):
     monkeypatch.setenv("DATA_DIR", str(tmp_path))
-    monkeypatch.setenv("ANTHROPIC_API_KEY", "")   # force AI fallback
+    monkeypatch.setenv("GEMINI_API_KEY", "")   # force AI fallback
     monkeypatch.setenv("RATE_LIMIT_MAX", "3")
     from app.config import get_settings
     get_settings.cache_clear()

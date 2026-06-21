@@ -6,7 +6,7 @@ from app.services.ai_service import AIService, rule_based_fallback
 
 @pytest.mark.asyncio
 async def test_fallback_used_when_no_api_key():
-    svc = AIService(Settings(anthropic_api_key=None))
+    svc = AIService(Settings(gemini_api_key=None))
     result = await svc.analyze("This is URGENT, please respond ASAP about a job.")
     assert result.ai_available is False
     assert result.priority == "high"          # keyword "urgent"/"asap"
@@ -15,13 +15,16 @@ async def test_fallback_used_when_no_api_key():
 
 @pytest.mark.asyncio
 async def test_fallback_on_client_error():
-    class BoomClient:
-        class messages:
-            @staticmethod
-            async def create(**kwargs):
-                raise RuntimeError("network down")
+    class _BoomModels:
+        @staticmethod
+        async def generate_content(**kwargs):
+            raise RuntimeError("network down")
 
-    svc = AIService(Settings(anthropic_api_key="sk-test"), client=BoomClient())
+    class BoomClient:
+        class aio:
+            models = _BoomModels()
+
+    svc = AIService(Settings(gemini_api_key="test-key"), client=BoomClient())
     result = await svc.analyze("Hello, nice site.")
     assert result.ai_available is False
 

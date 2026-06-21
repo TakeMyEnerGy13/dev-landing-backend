@@ -1,4 +1,7 @@
 import json
+from typing import Literal
+
+from pydantic import BaseModel
 
 from app.config import Settings
 from app.core.logging import get_app_logger
@@ -12,17 +15,20 @@ SYSTEM_PROMPT = (
     "site owner. Keep the draft reply under 80 words."
 )
 
-ANALYSIS_SCHEMA = {
-    "type": "object",
-    "properties": {
-        "sentiment": {"type": "string", "enum": ["positive", "neutral", "negative"]},
-        "category": {"type": "string", "enum": ["sales", "support", "spam", "other"]},
-        "priority": {"type": "string", "enum": ["low", "normal", "high"]},
-        "suggested_reply": {"type": "string"},
-    },
-    "required": ["sentiment", "category", "priority", "suggested_reply"],
-    "additionalProperties": False,
-}
+
+class AIAnalysisOut(BaseModel):
+    """Structured-output schema sent to Gemini as `response_schema`.
+
+    Intentionally has no default values: the Gemini API rejects response
+    schemas with default field values (googleapis/python-genai#699). The
+    `ai_available` flag lives on `AIAnalysis`, not here.
+    """
+
+    sentiment: Literal["positive", "neutral", "negative"]
+    category: Literal["sales", "support", "spam", "other"]
+    priority: Literal["low", "normal", "high"]
+    suggested_reply: str
+
 
 _HIGH_PRIORITY = ("urgent", "asap", "срочно", "немедленно")
 _SALES = ("project", "hire", "job", "collaborat", "vacancy", "проект", "сотруднич", "ваканс")
@@ -48,25 +54,30 @@ class AIService:
         self._settings = settings
         self._client = client
         if self._client is None and settings.ai_configured:
-            import anthropic
-            self._client = anthropic.AsyncAnthropic(
-                api_key=settings.anthropic_api_key,
-                timeout=settings.ai_timeout_seconds,
+            from google import genai
+            from google.genai import types
+
+            self._client = genai.Client(
+                api_key=settings.gemini_api_key,
+                http_options=types.HttpOptions(timeout=int(settings.ai_timeout_seconds * 1000)),
             )
 
     async def analyze(self, comment: str) -> AIAnalysis:
         if self._client is None:
             return rule_based_fallback(comment)
         try:
-            resp = await self._client.messages.create(
+            from google.genai import types
+
+            resp = await self._client.aio.models.generate_content(
                 model=self._settings.ai_model,
-                max_tokens=1024,
-                system=SYSTEM_PROMPT,
-                messages=[{"role": "user", "content": comment}],
-                output_config={"format": {"type": "json_schema", "schema": ANALYSIS_SCHEMA}},
+                contents=comment,
+                config=types.GenerateContentConfig(
+                    system_instruction=SYSTEM_PROMPT,
+                    response_mime_type="application/json",
+                    response_schema=AIAnalysisOut,
+                ),
             )
-            text = next(b.text for b in resp.content if b.type == "text")
-            data = json.loads(text)
+            data = json.loads(resp.text)
             return AIAnalysis(**data, ai_available=True)
         except Exception as exc:  # noqa: BLE001 — any failure must degrade gracefully
             get_app_logger().warning(
