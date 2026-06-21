@@ -4,6 +4,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
+from app.core.errors import register_exception_handlers
 
 _START_TIME = time.monotonic()
 
@@ -18,6 +19,8 @@ def create_app() -> FastAPI:
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    register_exception_handlers(app)
 
     @app.get("/api/health")
     def health() -> dict:
