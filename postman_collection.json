@@ -1,0 +1,23 @@
+{
+  "info": { "name": "Dev Landing Backend", "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json" },
+  "variable": [{ "key": "baseUrl", "value": "http://localhost:8000" }],
+  "item": [
+    {
+      "name": "Health",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/health" }
+    },
+    {
+      "name": "Submit contact",
+      "request": {
+        "method": "POST",
+        "header": [{ "key": "Content-Type", "value": "application/json" }],
+        "url": "{{baseUrl}}/api/contact",
+        "body": { "mode": "raw", "raw": "{\n  \"name\": \"Alice Founder\",\n  \"email\": \"alice@example.com\",\n  \"phone\": \"+1 555 123 4567\",\n  \"comment\": \"Loved your portfolio — can we discuss a paid project?\"\n}" }
+      }
+    },
+    {
+      "name": "Metrics",
+      "request": { "method": "GET", "url": "{{baseUrl}}/api/metrics" }
+    }
+  ]
+}
