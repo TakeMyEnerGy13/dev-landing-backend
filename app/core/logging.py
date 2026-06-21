@@ -44,6 +44,7 @@ def setup_logging() -> None:
     global _CONFIGURED
     _build_logger("requests", "requests.log")
     _build_logger("app", "app.log")
+    _CONFIGURED = True
 
 
 def get_request_logger() -> logging.Logger:
