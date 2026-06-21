@@ -5,6 +5,8 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.config import get_settings
 from app.core.errors import register_exception_handlers
+from app.core.logging import setup_logging
+from app.core.middleware import RequestLoggingMiddleware
 
 _START_TIME = time.monotonic()
 
@@ -12,6 +14,10 @@ _START_TIME = time.monotonic()
 def create_app() -> FastAPI:
     settings = get_settings()
     app = FastAPI(title="Dev Landing Backend", version="1.0.0")
+
+    setup_logging()
+
+    app.add_middleware(RequestLoggingMiddleware)
 
     app.add_middleware(
         CORSMiddleware,
