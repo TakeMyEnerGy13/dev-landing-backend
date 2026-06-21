@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Alex Dev — Product Engineer</title>
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <header class="hero">
+    <h1>Alex Dev</h1>
+    <p>Product engineer building AI-powered web apps.</p>
+  </header>
+
+  <section class="about">
+    <h2>About</h2>
+    <p>I ship full-stack products: TypeScript, Python, and Claude-powered features.</p>
+  </section>
+
+  <section class="contact">
+    <h2>Contact</h2>
+    <form id="contact-form">
+      <input name="name" placeholder="Your name" required minlength="2" />
+      <input name="email" type="email" placeholder="Email" required />
+      <input name="phone" placeholder="Phone (+1 555 123 4567)" required />
+      <textarea name="comment" placeholder="Your message" required minlength="5"></textarea>
+      <!-- honeypot: hidden from humans, bots fill it -->
+      <input class="hp" type="text" name="honeypot" tabindex="-1" autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+    <div id="result" class="result" hidden></div>
+  </section>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
