@@ -28,6 +28,10 @@ def create_app() -> FastAPI:
 
     register_exception_handlers(app)
 
+    from app.api import contact, metrics
+    app.include_router(contact.router)
+    app.include_router(metrics.router)
+
     @app.get("/api/health")
     def health() -> dict:
         return {
