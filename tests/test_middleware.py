@@ -32,3 +32,5 @@ def test_middleware_logs_request_and_sets_header(tmp_path, monkeypatch):
     assert record["path"] == "/ping"
     assert record["status"] == 200
     assert "latency_ms" in record
+    assert "request_id" in record
+    assert "ip" in record

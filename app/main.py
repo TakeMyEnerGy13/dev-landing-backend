@@ -17,14 +17,14 @@ def create_app() -> FastAPI:
 
     setup_logging()
 
-    app.add_middleware(RequestLoggingMiddleware)
-
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origin_list,
         allow_methods=["*"],
         allow_headers=["*"],
     )
+
+    app.add_middleware(RequestLoggingMiddleware)
 
     register_exception_handlers(app)
 
