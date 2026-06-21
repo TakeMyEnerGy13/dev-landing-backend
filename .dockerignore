@@ -1,0 +1,13 @@
+.git
+.gitignore
+.venv
+venv
+__pycache__
+*.pyc
+data
+docs
+tests
+.env
+*.md
+postman_collection.json
+render.yaml
