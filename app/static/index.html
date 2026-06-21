@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Artyom Lukas — Product Engineer & AI Designer</title>
+  <meta name="description" content="Artyom Lukas — product engineer and AI designer shipping AI-powered web products with TypeScript and Claude." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Expanded:wght@500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- ───────────────────────── top bar ───────────────────────── -->
+  <header class="topbar">
+    <a class="wordmark" href="#top">ARTYOM&nbsp;LUKAS</a>
+    <nav class="nav">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <span class="status"><span class="dot"></span>Available · 2026</span>
+  </header>
+
+  <main id="top">
+    <!-- ───────────────────────── hero ───────────────────────── -->
+    <section class="hero" id="hero">
+      <p class="hero__index reveal" style="--d:0">01 — Index</p>
+      <h1 class="hero__title">
+        <span class="line reveal" style="--d:1">Product</span>
+        <span class="line reveal" style="--d:2">Engineer</span>
+        <span class="line line--accent reveal" style="--d:3">&amp;&nbsp;AI&nbsp;Designer</span>
+      </h1>
+      <div class="hero__meta">
+        <p class="reveal" style="--d:4"><span class="k">Role</span> Ships AI-powered web products end&#8209;to&#8209;end.</p>
+        <p class="reveal" style="--d:5"><span class="k">Stack</span> TypeScript · Python · Claude · Image&#8209;gen</p>
+        <p class="reveal" style="--d:6"><span class="k">Based</span> Remote · EU hours</p>
+      </div>
+      <a class="hero__cta reveal" style="--d:7" href="#contact">
+        <span>Start a project</span>
+        <span class="arrow" aria-hidden="true">→</span>
+      </a>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ───────────────────────── work / focus ───────────────────────── -->
+    <section class="focus" id="work">
+      <header class="sec-head">
+        <span class="sec-no">02</span>
+        <h2>Selected focus</h2>
+      </header>
+      <ol class="cards">
+        <li class="card">
+          <span class="card__no">01</span>
+          <h3>AI product features</h3>
+          <p>Sentiment, classification and drafting wired into real backends — with graceful fallbacks so the product never goes dark.</p>
+        </li>
+        <li class="card">
+          <span class="card__no">02</span>
+          <h3>Generative imagery</h3>
+          <p>Marketplace cards and visuals via SDXL inpainting and prompt pipelines — design taste applied to generative tooling.</p>
+        </li>
+        <li class="card">
+          <span class="card__no">03</span>
+          <h3>Backends that ship</h3>
+          <p>Typed APIs, validation, rate limiting and clean architecture. This very site runs on a FastAPI service behind the form.</p>
+        </li>
+      </ol>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ───────────────────────── about ───────────────────────── -->
+    <section class="about" id="about">
+      <header class="sec-head">
+        <span class="sec-no">03</span>
+        <h2>About</h2>
+      </header>
+      <div class="about__body">
+        <p class="lead">I’m a designer who codes — building the kind of AI products where the model is a feature, not the whole story.</p>
+        <p>I care about the full loop: a clean interface, a typed backend, and an AI layer that fails gracefully. Comfortable owning a feature from the first sketch to the deployed endpoint.</p>
+      </div>
+    </section>
+
+    <hr class="rule" />
+
+    <!-- ───────────────────────── contact ───────────────────────── -->
+    <section class="contact" id="contact">
+      <header class="sec-head">
+        <span class="sec-no">04</span>
+        <h2>Get in touch</h2>
+      </header>
+      <div class="contact__grid">
+        <aside class="contact__aside">
+          <p class="k">Direct</p>
+          <a class="big-link" href="mailto:temalukas307@gmail.com">temalukas307@gmail.com</a>
+          <p class="note">Or use the form — it runs through an AI triage that reads your message and routes it by priority.</p>
+        </aside>
+
+        <form id="contact-form" class="form" novalidate>
+          <div class="field">
+            <label for="name">Name</label>
+            <input id="name" name="name" type="text" required minlength="2" maxlength="80" placeholder="Your name" autocomplete="name" />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" required placeholder="you@company.com" autocomplete="email" />
+          </div>
+          <div class="field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="text" required placeholder="+1 555 123 4567" autocomplete="tel" />
+          </div>
+          <div class="field">
+            <label for="comment">Message</label>
+            <textarea id="comment" name="comment" required minlength="5" maxlength="2000" placeholder="What are you building?"></textarea>
+          </div>
+
+          <!-- honeypot: hidden from humans, bots fill it -->
+          <input class="hp" type="text" name="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+          <button type="submit" class="submit">
+            <span class="submit__label">Send message</span>
+            <span class="arrow" aria-hidden="true">→</span>
+          </button>
+
+          <output id="result" class="result" hidden></output>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ───────────────────────── footer ───────────────────────── -->
+  <footer class="footer">
+    <span>© 2026 Artyom Lukas</span>
+    <span class="footer__mid">Built with FastAPI + Claude</span>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
