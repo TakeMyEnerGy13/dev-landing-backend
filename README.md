@@ -214,6 +214,8 @@ All runtime data is written to `data/` (created automatically on first run; git-
 
 Hosted on a personal Ubuntu VPS via Docker (`Dockerfile` + `compose.vps.yml`), behind a shared Caddy reverse proxy that terminates TLS (Let's Encrypt). The non-standard `:88` port is because `443` on the host is occupied by another service; Caddy maps host `:88` to its internal `:443`. AI triage runs live on Google Gemini.
 
+> **Email in the live demo:** the SMTP layer is implemented and unit-tested, but the hosted instance runs **without SMTP credentials**, so notification emails are written to `data/app.log` rather than sent. To enable real delivery, set `SMTP_HOST` / `SMTP_PORT` / `SMTP_USER` / `SMTP_PASSWORD` — either a Mailtrap inbox or a Gmail App Password works.
+
 To run it yourself, follow the [local run instructions](#1-how-to-run), or use the container:
 
 ```bash
