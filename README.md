@@ -210,7 +210,15 @@ All runtime data is written to `data/` (created automatically on first run; git-
 
 ## Deployment
 
-No live hosted deployment exists yet. Follow the [local run instructions](#1-how-to-run) above to run the service on your machine.
+**Live demo: https://tema-landing.duckdns.org:88/** — landing page, with `GET /api/health`, `GET /api/metrics`, and Swagger at `/docs`.
+
+Hosted on a personal Ubuntu VPS via Docker (`Dockerfile` + `compose.vps.yml`), behind a shared Caddy reverse proxy that terminates TLS (Let's Encrypt). The non-standard `:88` port is because `443` on the host is occupied by another service; Caddy maps host `:88` to its internal `:443`. AI triage runs live on Google Gemini.
+
+To run it yourself, follow the [local run instructions](#1-how-to-run), or use the container:
+
+```bash
+docker compose up -d --build   # serves on http://localhost:8000
+```
 
 ### Optional: deploy to Render (free tier)
 
