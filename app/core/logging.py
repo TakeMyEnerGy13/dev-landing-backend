@@ -29,6 +29,9 @@ def _build_logger(name: str, filename: str) -> logging.Logger:
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     logger.propagate = False
+
+    for h in list(logger.handlers):
+        h.close()
     logger.handlers.clear()
 
     handler = logging.FileHandler(data_dir / filename, encoding="utf-8")
@@ -41,16 +44,19 @@ def setup_logging() -> None:
     global _CONFIGURED
     _build_logger("requests", "requests.log")
     _build_logger("app", "app.log")
-    _CONFIGURED = True
 
 
 def get_request_logger() -> logging.Logger:
+    global _CONFIGURED
     if not _CONFIGURED:
         setup_logging()
+        _CONFIGURED = True
     return logging.getLogger("requests")
 
 
 def get_app_logger() -> logging.Logger:
+    global _CONFIGURED
     if not _CONFIGURED:
         setup_logging()
+        _CONFIGURED = True
     return logging.getLogger("app")
