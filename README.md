@@ -142,8 +142,8 @@ Returns aggregated submission counts.
 {
   "total": 12,
   "by_category": { "sales": 7, "support": 2, "spam": 1, "other": 2 },
-  "by_priority": { "low": 1, "normal": 9, "high": 2 },
-  "by_sentiment": { "positive": 6, "neutral": 4, "negative": 2 }
+  "by_sentiment": { "positive": 6, "neutral": 4, "negative": 2 },
+  "last_updated": "2026-06-21T10:00:00.000000+00:00"
 }
 ```
 
@@ -200,9 +200,9 @@ All runtime data is written to `data/` (created automatically on first run; git-
 
 | File | Format | Contents |
 |------|--------|---------|
-| `data/requests.log` | JSON Lines | One record per contact submission: timestamp, name, email (no password), IP, AI analysis result |
+| `data/requests.log` | JSON Lines | One record per HTTP request: `request_id`, `method`, `path`, `ip`, `status`, `latency_ms` (no PII or message body) |
 | `data/app.log` | JSON Lines | Application events: AI fallback warnings, email send results, errors |
-| `data/metrics.json` | JSON object | Aggregated counters (total, by_category, by_priority, by_sentiment); written atomically via temp-file rename |
+| `data/metrics.json` | JSON object | Aggregated counters (total, by_category, by_sentiment, last_updated); written atomically via temp-file rename |
 
 **Rate limiting** uses an in-memory sliding-window counter keyed by client IP. State is lost on restart. For production, replace with a Redis-backed counter (e.g., `redis-py` + `aioredis`).
 

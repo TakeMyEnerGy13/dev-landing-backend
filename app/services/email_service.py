@@ -1,5 +1,4 @@
 from email.message import EmailMessage
-from html import escape
 
 from app.config import Settings
 from app.core.logging import get_app_logger
