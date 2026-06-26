@@ -240,11 +240,3 @@ AI-анализ работает вживую на Google Gemini.
 ```bash
 docker compose up -d --build   # отдаёт на http://localhost:8000
 ```
-
-### Опционально: деплой на Render (free tier)
-
-1. Запушить репо на GitHub.
-2. В [дашборде Render](https://render.com) создать новый **Web Service** и подключить репо.
-3. Render подхватит `render.yaml` и предзаполнит настройки сервиса.
-4. Задать секретные env-переменные (`GEMINI_API_KEY`, `SMTP_USER`, `SMTP_PASSWORD`, `OWNER_EMAIL`) в дашборде Render — они помечены `sync: false` и вводятся вручную.
-5. Деплой. Первый запрос после холодного старта на free tier занимает ~30 с.
